@@ -5,7 +5,7 @@ endif
 " Constants for RPC messages.
 let s:TranslateByteArray = 'TranslateByteArray'
 
-let s:bin = '~/.config/nvim/plugged/nvim-translate-byte-literal/target/debug'
+let s:bin = '/home/yanganto/.config/nvim/plugged/nvim-translate-byte-literal/target/debug/nvim-translate-byte-literal'
 
 " Entry point. Initialize RPC. If it succeeds, then attach commands to the `rpcnotify` invocations.
 function! s:connect()
