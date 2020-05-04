@@ -1,5 +1,8 @@
 extern crate neovim_lib;
 
+#[cfg(test)]
+mod tests;
+
 use neovim_lib::{Neovim, NeovimApi, Session};
 
 struct Engine;
@@ -9,8 +12,12 @@ impl Engine {
         Engine {}
     }
 
-    fn translate_number_array(&self, nums: Vec<i64>) -> String {
+    fn translate_number_array(&self, nums: Vec<u64>) -> String {
         "Not Implement".to_string()
+    }
+
+    fn str_preprocessor(&self, raw_str: &str) -> Vec<u64> {
+        vec![]
     }
 }
 
@@ -48,8 +55,14 @@ impl EventHandler {
         for (event, values) in receiver {
             match Messages::from(event) {
                 Messages::TranslateByteArray => {
+                    let nums = self
+                        .engine
+                        .str_preprocessor(values[0].as_str().unwrap_or_default());
                     self.nvim
-                        .command(&format!("echo \"got {:?}\"", values[0].is_str()))
+                        .command(&format!(
+                            "echo \"{}\"",
+                            self.engine.translate_number_array(nums)
+                        ))
                         .unwrap();
                 }
 
@@ -66,6 +79,5 @@ impl EventHandler {
 
 fn main() {
     let mut event_handler = EventHandler::new();
-
     event_handler.recv();
 }
