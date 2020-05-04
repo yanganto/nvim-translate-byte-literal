@@ -28,7 +28,23 @@ function! s:configureCommands()
 endfunction
 
 function! s:translateByteArray()
-  call rpcnotify(s:translateByteLiteralJobId, s:TranslateByteArray, getpos('.'))
+  if mode()=="v"
+    let [line_start, column_start] = getpos("v")[1:2]
+    let [line_end, column_end] = getpos(".")[1:2]
+  else
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+  end
+
+  if (line2byte(line_start)+column_start) > (line2byte(line_end)+column_end)
+    let [line_start, column_start, line_end, column_end] =
+    \ [line_end, column_end, line_start, column_start]
+  end
+  if line_start == line_end
+    call rpcnotify(s:translateByteLiteralJobId, s:TranslateByteArray, getline("."))
+  else
+    call rpcnotify(s:translateByteLiteralJobId, s:TranslateByteArray, join(getline(line_start, line_end), '\n'))
+  end
 endfunction
 
 function! s:initRpc()

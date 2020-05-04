@@ -48,14 +48,8 @@ impl EventHandler {
         for (event, values) in receiver {
             match Messages::from(event) {
                 Messages::TranslateByteArray => {
-                    // let nums = values
-                    //     .iter()
-                    //     .map(|v| v.as_i64().unwrap())
-                    //     .collect::<Vec<i64>>();
-
-                    // let output = self.engine.translate_number_array(nums);
                     self.nvim
-                        .command(&format!("echo \"{:?}\"", values))
+                        .command(&format!("echo \"got {:?}\"", values[0].is_str()))
                         .unwrap();
                 }
 
