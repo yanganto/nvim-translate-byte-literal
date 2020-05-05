@@ -3,6 +3,8 @@ extern crate neovim_lib;
 #[cfg(test)]
 mod tests;
 
+use std::str;
+
 use neovim_lib::{Neovim, NeovimApi, Session};
 
 struct Engine;
@@ -12,12 +14,24 @@ impl Engine {
         Engine {}
     }
 
-    fn translate_number_array(&self, nums: Vec<u64>) -> String {
-        "Not Implement".to_string()
+    fn translate_number_array(&self, nums: Vec<u8>) -> String {
+        str::from_utf8(&nums)
+            .unwrap_or("Translate faile".into())
+            .into()
     }
 
-    fn str_preprocessor(&self, raw_str: &str) -> Vec<u64> {
-        vec![]
+    fn str_preprocessor(&self, raw_str: &str) -> Vec<u8> {
+        let mut output = Vec::new();
+        for s in raw_str
+            .trim_start_matches('[')
+            .trim_end_matches(']')
+            .split(",")
+        {
+            if let Ok(n) = s.trim().parse::<u8>() {
+                output.push(n);
+            }
+        }
+        output
     }
 }
 
@@ -60,7 +74,7 @@ impl EventHandler {
                         .str_preprocessor(values[0].as_str().unwrap_or_default());
                     self.nvim
                         .command(&format!(
-                            "echo \"{}\"",
+                            "echo {:?}",
                             self.engine.translate_number_array(nums)
                         ))
                         .unwrap();
