@@ -24,12 +24,20 @@ fn test_translate_number_array() {
     );
 }
 
-// TODO
-// #[test]
-// fn test_str_preprocessor_with_leading_space() {
-//     let n = Engine::new();
-//     assert_eq!(
-//         n.str_preprocessor("  [65, 110, 116, 111, 110, 105, 111]"),
-//         vec![65, 110, 116, 111, 110, 105, 111]
-//     );
-// }
+#[test]
+fn test_str_preprocessor_with_leading_space() {
+    let n = Engine::new();
+    assert_eq!(
+        n.str_preprocessor("  [65, 110, 116, 111, 110, 105, 111]"),
+        vec![65, 110, 116, 111, 110, 105, 111]
+    );
+}
+
+#[test]
+fn test_str_preprocessor_with_leading_words() {
+    let n = Engine::new();
+    assert_eq!(
+        n.str_preprocessor("words[65, 110, 116, 111, 110, 105, 111]"),
+        vec![65, 110, 116, 111, 110, 105, 111]
+    );
+}

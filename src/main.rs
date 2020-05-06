@@ -23,6 +23,8 @@ impl Engine {
     fn str_preprocessor(&self, raw_str: &str) -> Vec<u8> {
         let mut output = Vec::new();
         for s in raw_str
+            .split_at(raw_str.find('[').unwrap_or_default())
+            .1
             .trim_start_matches('[')
             .trim_end_matches(']')
             .split(",")
