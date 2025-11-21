@@ -1,11 +1,9 @@
 if !exists('s:translateByteLiteralJobId')
-	let s:translateByteLiteralJobId = 0
+  let s:translateByteLiteralJobId = 0
 endif
 
 " Constants for RPC messages.
 let s:TranslateByteArray = 'TranslateByteArray'
-
-let s:bin = '/home/yanganto/.config/nvim/plugged/nvim-translate-byte-literal/target/debug/nvim-translate-byte-literal'
 
 " Entry point. Initialize RPC. If it succeeds, then attach commands to the `rpcnotify` invocations.
 function! s:connect()
@@ -49,7 +47,7 @@ endfunction
 
 function! s:initRpc()
   if s:translateByteLiteralJobId == 0
-    let jobid = jobstart([s:bin], { 'rpc': v:true })
+    let jobid = jobstart(['nix', 'run', 'github:yanganto/nvim-translate-byte-literal/update-flake'], { 'rpc': v:true })
     return jobid
   else
     return s:translateByteLiteralJobId 
