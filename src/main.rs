@@ -15,9 +15,7 @@ impl Engine {
     }
 
     fn translate_number_array(&self, nums: Vec<u8>) -> String {
-        str::from_utf8(&nums)
-            .unwrap_or("Translate faile".into())
-            .into()
+        str::from_utf8(&nums).unwrap_or("Translate fail").into()
     }
 
     fn str_preprocessor(&self, raw_str: &str) -> Vec<u8> {

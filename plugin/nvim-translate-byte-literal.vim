@@ -47,7 +47,7 @@ endfunction
 
 function! s:initRpc()
   if s:translateByteLiteralJobId == 0
-    let jobid = jobstart(['nix', 'run', 'github:yanganto/nvim-translate-byte-literal/update-flake'], { 'rpc': v:true })
+    let jobid = jobstart(['nix', 'run', 'github:yanganto/nvim-translate-byte-literal'], { 'rpc': v:true })
     return jobid
   else
     return s:translateByteLiteralJobId 
