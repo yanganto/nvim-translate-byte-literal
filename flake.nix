@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11-small";
 
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
@@ -26,7 +26,7 @@
       {
         devShell = pkgs.mkShell ({
           buildInputs = with pkgs; [
-            rust-bin.stable."1.91.1".default
+            rust-bin.stable.latest.default
           ];
         });
         packages.default = pkgs.rustPlatform.buildRustPackage rec {
