@@ -1,5 +1,3 @@
-extern crate neovim_lib;
-
 #[cfg(test)]
 mod tests;
 

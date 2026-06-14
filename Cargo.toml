@@ -2,7 +2,7 @@
 name = "nvim-translate-byte-literal"
 version = "0.1.0"
 authors = ["Antonio Yang <yanganto@gmail.com>"]
-edition = "2018"
+edition = "2024"
 
 [dependencies]
 neovim-lib = "0.6.1"
